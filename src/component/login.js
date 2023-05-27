@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signIn } from './signIn';
 
 function Login() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [message,setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleIdChange = (event) => {
     setId(event.target.value);
@@ -15,9 +18,31 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 여기에서 폼 데이터를 처리하거나 로그인 요청을 보낼 수 있습니다.
-    console.log('ID:', id);
-    console.log('Password:', password);
+    // 여기에서 폼 데이터를 처리 및 로그인 요청
+    // console.log('ID:', id);
+    // console.log('Password:', password);
+
+    if (id.trim()===''){
+        setMessage('Please enter your ID');
+        return;
+    }
+
+    try{
+        const user=signIn({id,password});
+        console.log('logged in user : ', user.id);
+        // 로그인 된 후 처리 
+        navigate('/');
+    }catch(error){
+        console.log('login failed');
+        // 잘못된 로그인 처리
+        if (error.message === 'Invalid ID') {
+            setMessage('Nonexist ID'); // Set invalid ID message
+          } else if (error.message === 'Invalid password') {
+            setMessage('Invalid password'); // Set invalid password message
+          } else {
+            setMessage('Login failed'); // Set generic login failed message
+          }
+    }
   };
 
   return (
@@ -34,6 +59,7 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p style={{ color: 'red', fontWeight: 'bold', fontSize: 'smaller' }}> {message} </p>
       <br />
       <Link to="/">Go back to Main</Link>
     </div>

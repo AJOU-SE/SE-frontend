@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from './signIn';
+import { UserContext } from '../App';
 
 function Login() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [message,setMessage] = useState('');
   const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);
 
   const handleIdChange = (event) => {
     setId(event.target.value);
@@ -31,6 +33,7 @@ function Login() {
         const user=signIn({id,password});
         console.log('logged in user : ', user.id);
         // 로그인 된 후 처리 
+        handleLogin(id);
         navigate('/');
     }catch(error){
         console.log('login failed');

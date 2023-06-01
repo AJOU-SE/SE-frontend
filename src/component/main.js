@@ -1,9 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
+import cafeteria_list from './cafeteria_list'
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
+  const [expanded, setExpanded] = useState({});
+
+  const toggleExpand = (index) => {
+    setExpanded((prevState)=>({
+      ...prevState, [index]:!prevState[index],
+    }));
+  }
+
 
   return (
     <div>
@@ -18,6 +27,28 @@ function Main() {
           <Link to="/login">Go to Login Page</Link>
         </div>
       )}
+
+      {cafeteria_list.results.map((cafeteria,index)=>(
+        <div key={index} >
+          <h3>{cafeteria.name}</h3>
+          <button onClick={()=>toggleExpand(index)}>
+            {expanded[index] ? '접기' : '더보기'}  
+          </button>
+          {expanded[index] && (
+            <div>
+              <p>위치 : {cafeteria.loc}</p>
+              <p>전화번호 : {cafeteria.num}</p>
+              <p>운영시간 : {cafeteria.time}</p>
+              {cafeteria.breaktime && (
+                <p>break-time : {cafeteria.breaktime}</p> )}
+              {cafeteria.cf && (
+                <p>* {cafeteria.cf}</p> )}
+            </div>
+          )}
+          
+        </div>
+      ))}
+
     </div>
   );
 }

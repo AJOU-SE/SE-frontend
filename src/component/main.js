@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import cafeteria_list from './cafeteria_list'
+import InfoIcon from '@mui/icons-material/Info';
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
@@ -31,9 +32,13 @@ function Main() {
       {cafeteria_list.results.map((cafeteria,index)=>(
         <div key={index} >
           <h3>{cafeteria.name}</h3>
-          <button onClick={()=>toggleExpand(index)}>
+          {/* <button onClick={()=>toggleExpand(index)}>
             {expanded[index] ? '접기' : '더보기'}  
-          </button>
+          </button> */}
+          <InfoIcon 
+            onClick={()=> toggleExpand(index)}
+            style={{cursor:'pointer'}} 
+          />
           {expanded[index] && (
             <div>
               <p>위치 : {cafeteria.loc}</p>

@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signIn } from './signIn';
 import { UserContext } from '../App';
+import axios from 'axios';
 
 function Login() {
   const [id, setId] = useState('');
@@ -18,7 +18,7 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // 여기에서 폼 데이터를 처리 및 로그인 요청
     // console.log('ID:', id);
@@ -30,21 +30,32 @@ function Login() {
     }
 
     try{
-        const user=signIn({id,password});
-        console.log('logged in user : ', user.id);
-        // 로그인 된 후 처리 
-        handleLogin(id);
-        navigate('/');
+        const response=await axios.post('/member/login',{
+          email: id,
+          password: password
+        });
+        
+        if (response.status===200){
+          const user=response.data;
+          console.log('user email: ',user.id);
+          handleLogin(user.email);
+          navigate('/');
+        }else {
+          throw new Error('Login Failed');
+        }
+        
     }catch(error){
-        console.log('login failed');
+        console.log('Login Failed');
         // 잘못된 로그인 처리
-        if (error.message === 'Invalid ID') {
-            setMessage('Nonexist ID'); // Set invalid ID message
-          } else if (error.message === 'Invalid password') {
-            setMessage('Invalid password'); // Set invalid password message
-          } else {
-            setMessage('Login failed'); // Set generic login failed message
-          }
+        if (error.response) {
+            if (error.response.status===401){
+              setMessage('Nonexist ID or password'); 
+            }else {
+            setMessage('Login Failed'); 
+          } 
+        }else {
+          setMessage('Login Failed'); 
+        }
     }
   };
 

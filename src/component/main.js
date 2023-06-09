@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import cafeteria_list from './cafeteria_list'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import axios from 'axios';
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
@@ -14,13 +15,25 @@ function Main() {
     }));
   }
 
+  const handleLogoutClick= async()=>{
+    try{
+      const response = await axios.get('/member/logout');
+      if (response.status===200){
+        handleLogout();
+      }else{
+        throw new Error('Logout Failed');
+      }
+    } catch(error){
+      console.log('Logout Failed');
+    }
+  }
 
   return (
     <div>
       {loggedIn ? (
         <div>
           <h2>{userId}님, 안녕하세요!</h2>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogoutClick}>Logout</button>
         </div>
       ) : (
         <div>

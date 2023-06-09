@@ -46,7 +46,6 @@ function Login() {
         
     }catch(error){
         console.log('Login Failed');
-        // 잘못된 로그인 처리
         if (error.response) {
             if (error.response.status===401){
               setMessage('Nonexist ID or password'); 

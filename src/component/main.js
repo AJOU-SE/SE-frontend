@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import cafeteria_list from './cafeteria_list';
@@ -7,12 +7,38 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 import axios from 'axios';
 import { showMenuByCafeteria, showMenuByStore } from './menu';
+import { formatDate, getDayOfWeek, moveToPreviousDate, moveToNextDate } from './date';
+import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
+import { getMenuBySearchTerm } from './cafeteria_menu';
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
   const [expanded, setExpanded] = useState({});
   const [menuExpanded, setMenuExpanded] = useState({});
   const [achelinExpanded, setAchelinExpanded] = useState({});
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = async(e)=>{
+    e.preventDefault();
+    const results = await getMenuBySearchTerm(searchTerm);
+    setSearchResults(results);
+  };
+
+  const handlePreviousDate = () => {
+    const previousDate = moveToPreviousDate(selectedDate);
+    setSelectedDate(previousDate);
+  };
+
+  const handleNextDate = () => {
+    const nextDate = moveToNextDate(selectedDate);
+    setSelectedDate(nextDate);
+  };
+
+  const formattedDate = formatDate(selectedDate);
+  const dayOfWeek = getDayOfWeek(selectedDate);
 
   const toggleExpand = (index) => {
     setExpanded((prevState)=>({
@@ -61,6 +87,20 @@ function Main() {
           <Link to="/login">Go to Login Page</Link>
         </div>
       )}
+      <br />
+      <p>
+          <ArrowLeftOutlinedIcon onClick={handlePreviousDate} style={{ cursor: 'pointer', fontSize:'0.9rem'}} />
+          {formattedDate}({dayOfWeek}) 
+          <ArrowRightOutlinedIcon onClick={handleNextDate} style={{ cursor: 'pointer', fontSize:'0.9rem'}} />
+      </p>
+
+      <form onSubmit={handleSearch}>
+        <input 
+          type="text" 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)} />
+        <button type="submit">search</button>
+      </form>
 
       {cafeteria_list.results.map((cafeteria,index)=>(
         <div key={index} >
@@ -91,11 +131,12 @@ function Main() {
                   Achelin_list.map((item,index)=>(
                     <div key={index}>
                       <p>
-                        <h4>{item.store} &nbsp;
-                        <ArrowDropDownCircleOutlinedIcon
-                          onClick={()=>toggleAchelinExpand(item.store)}
-                          style={{ cursor: 'pointer', fontSize: '0.9rem' }}
-                        />
+                        <h4>
+                          {item.store} &nbsp;
+                          <ArrowDropDownCircleOutlinedIcon
+                            onClick={()=>toggleAchelinExpand(item.store)}
+                            style={{ cursor: 'pointer', fontSize: '0.9rem' }}
+                          />
                         </h4>
                       </p>
                       {achelinExpanded[item.store] && (
@@ -106,7 +147,19 @@ function Main() {
                     </div>
                   ))
               ):(
-                showMenuByCafeteria(cafeteria.name)
+                // showMenuByCafeteria(cafeteria.name)
+                (searchTerm.length === 0 || searchResults.length === 0) ? (
+                  showMenuByCafeteria(cafeteria.name)
+                ) : (
+                  searchResults
+                    .filter((menu) => menu.cafeteria === cafeteria.name)
+                    .map((menu, index) => (
+                      <div key={index}>
+                        {menu.time && <p>{menu.time}</p>}
+                        <p>{menu.menu} {menu.price}원</p>
+                      </div>
+                    ))
+                )
               )}
             </div>
           )}

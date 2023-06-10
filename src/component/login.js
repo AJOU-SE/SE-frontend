@@ -4,14 +4,14 @@ import { UserContext } from '../App';
 import axios from 'axios';
 
 function Login() {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message,setMessage] = useState('');
   const navigate = useNavigate();
   const { handleLogin } = useContext(UserContext);
 
-  const handleIdChange = (event) => {
-    setId(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -24,20 +24,20 @@ function Login() {
     // console.log('ID:', id);
     // console.log('Password:', password);
 
-    if (id.trim()===''){
-        setMessage('Please enter your ID');
+    if (email.trim()===''){
+        setMessage('Please enter your email');
         return;
     }
 
     try{
         const response=await axios.post('/member/login',{
-          email: id,
+          email: email,
           password: password
         });
         
         if (response.status===200){
           const user=response.data;
-          console.log('user email: ',user.id);
+          console.log('user email: ',user.email);
           handleLogin(user.email);
           navigate('/');
         }else {
@@ -45,15 +45,17 @@ function Login() {
         }
         
     }catch(error){
-        console.log('Login Failed');
+        console.log('Login Failed_aaa');
         if (error.response) {
             if (error.response.status===401){
-              setMessage('Nonexist ID or password'); 
+              setMessage('Nonexist email or password'); 
             }else {
             setMessage('Login Failed'); 
+            console.log('bbb');
           } 
         }else {
           setMessage('Login Failed'); 
+          console.log('ccc');
         }
     }
   };
@@ -63,11 +65,11 @@ function Login() {
     <br />
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="id">&nbsp; &nbsp;&nbsp; &nbsp;  &nbsp;ID&nbsp; &nbsp; &nbsp;&nbsp;</label>
-          <input type="text" id="id" value={id} onChange={handleIdChange} />
+          <label htmlFor="email">&nbsp;  &nbsp;e-mail&nbsp; &nbsp;&nbsp;</label>
+          <input type="text" id="email" value={email} onChange={handleEmailChange} />
         </div>
         <div>
-          <label htmlFor="password"> &nbsp;Password </label>
+          <label htmlFor="password"> &nbsp;password </label>
           <input type="password" id="password" value={password} onChange={handlePasswordChange} />
         </div>
         <button type="submit">Login</button>

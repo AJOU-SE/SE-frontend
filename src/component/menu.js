@@ -3,7 +3,6 @@ import { getMenuByCafeteria,getMenuByStore } from "./cafeteria_menu";
 export const showMenuByCafeteria = (cafeteriaName) =>{
     const menuList = getMenuByCafeteria(cafeteriaName);
 
-
     return menuList.map((menu,index)=>(
         <div key={index}>
             {menu.time && <p>{menu.time}</p>}

@@ -1,0 +1,202 @@
+@import "style";
+
+.main {
+  overflow: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #c49600;
+  padding: 25px;
+  max-width: 500px;
+  min-height: 50%;
+  max-height: 80%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  margin: 0 auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0a5ca8;
+}
+
+details > summary {
+  font-family: "Gowun Dodum", sans-serif;
+  font-weight: bold;
+  padding: 10px;
+  margin: auto;
+  justify-content: center;
+  background-color: #fff;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 5px;
+  border: 1px solid $primary;
+}
+details[open] > summary {
+  border-color: $secondary;
+}
+
+.title {
+  color: $black;
+  font-family: "Ajou";
+  font-size: 1.5rem;
+  border-radius: 10px;
+  border-bottom: 3px solid $primary;
+}
+
+.head {
+  color: $black;
+  font-family: "Ajou";
+  font-size: 2rem;
+  font-weight: bolder;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+  border-bottom: 2px solid $primary;
+  border-radius: 10px;
+}
+
+.List {
+  color: $black;
+  font-family: "Ajou";
+  width: fit-content;
+  margin: 10px auto;
+  border-bottom: 2px solid $primary;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.ListInfo {
+  color: $black;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  width: fit-content;
+  margin: 10px auto;
+  border: 1px solid $gray-400;
+  border-radius: 10px;
+  padding: 3%;
+}
+
+.UserInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    li {
+      font-family: "Ajou";
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid $primary;
+      border-radius: 10px;
+      width: 300px;
+      padding-top: 5%;
+    }
+  }
+}
+
+span.b {
+  font-weight: bold;
+}
+
+span.r {
+  color: $danger;
+}
+
+th.style {
+  min-width: 30%;
+}
+
+.mgauto {
+  margin: 0 auto;
+}
+
+.mgtp {
+  margin-top: 3%;
+}
+
+.mgbt {
+  margin-bottom: 5%;
+}
+
+.mglf-3 {
+  margin-left: 3%;
+}
+
+.mglf-8 {
+  margin-left: 8%;
+}
+
+.mglf-10 {
+  margin-left: 10%;
+}
+
+.mglf-15 {
+  margin-left: 18%;
+}
+
+.mglf-0 {
+  margin-left: -5%;
+}
+
+.mgrg {
+  margin-right: 5%;
+}
+
+.pdtp {
+  padding-top: 5%;
+}
+
+.jcct {
+  justify-content: center;
+}
+
+.htfc {
+  height: fit-content;
+}
+
+// .panel button + button {
+//   margin-left: 10%;
+// }
+
+// .panel h2 {
+//   text-align: center;
+//   margin-bottom: 30px;
+// }
+
+// $sidebar-width: 260px;
+// $sidebar-color: #fff;

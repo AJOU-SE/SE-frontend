@@ -31,13 +31,11 @@ export default function Login(props) {
     axios
       .post("http://localhost:8086/member/login", body)
       .then((res) => {
-        if (res.status === 200 || res.status === 201 || res.status === 202) {
+        if (res.status === 200) {
           console.log(res.data);
           dispatch(loginUser(res.data.login));
           window.alert("로그인 성공!");
           navigate("/main");
-        } else {
-          alert(res.data.message);
         }
       })
       .catch((err) => {

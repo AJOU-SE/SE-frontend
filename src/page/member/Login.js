@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Form, Button, FloatingLabel } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/userSlice";
+import { loginUser } from "../../redux/userSlice";
 
 export default function Login(props) {
   const dispatch = useDispatch();

@@ -11,22 +11,20 @@ import {
   FloatingLabel,
 } from "react-bootstrap";
 
-function InfoEdit({ props }) {
-  const loginedUser = useSelector((state) => state.user);
+export default function UserEdit({ props }) {
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
-    name: "",
     nickname: "",
     password: "",
-    passwordCheck: "",
   });
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/member/${loginedUser.id}`
+          `http://localhost:8080/member/${user.id}`
           // update/{memberId}
         );
         const { data } = response.data;
@@ -40,10 +38,10 @@ function InfoEdit({ props }) {
       }
     };
     fetchUserInfo();
-  }, [loginedUser.id]);
+  }, [user.id]);
 
-  function onSubmitHandler(event) {
-    event.preventDefault();
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
 
     const body = {
       name: userInfo.name,
@@ -54,7 +52,7 @@ function InfoEdit({ props }) {
       alert("비밀번호가 일치하지 않습니다.");
     } else {
       axios
-        .patch(`http://localhost:8080/member/update/${loginedUser.id}`, body)
+        .patch(`http://localhost:8080/member/update/${user.id}`, body)
         .then((res) => {
           if (res.status === 200) {
             alert("회원정보가 수정되었습니다.");
@@ -82,12 +80,13 @@ function InfoEdit({ props }) {
   return (
     <Container fluid className="main">
       <div className="head mgbt">회원 정보</div>
+      <hr />
       <Form>
         <Row>
           <Col xs="5">
             <FloatingLabel
               controlId="floatingInput"
-              label="이름"
+              label="닉네임"
               className="mb-3"
             >
               <Form.Control
@@ -101,13 +100,13 @@ function InfoEdit({ props }) {
           <Col xs="7">
             <FloatingLabel
               controlId="floatingInput"
-              label="닉네임"
+              label="비밀번호"
               className="mb-3"
             >
               <Form.Control
-                type="text"
-                placeholder="Enter nickname"
-                value={userInfo.nickname}
+                type="password"
+                placeholder="Enter Password"
+                value={userInfo.password}
                 onChange={onChangeHandler}
                 required
               />
@@ -125,7 +124,7 @@ function InfoEdit({ props }) {
         <Button
           type="button"
           variant="danger"
-          className="mglf-3"
+          className="mglf-3 mgtp"
           onClick={goBack}
         >
           취소
@@ -134,5 +133,3 @@ function InfoEdit({ props }) {
     </Container>
   );
 }
-
-export default InfoEdit;

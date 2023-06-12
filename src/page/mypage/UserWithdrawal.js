@@ -3,30 +3,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container, Form, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { logoutUser } from "../redux/userSlice";
+import { logoutUser } from "../../redux/userSlice";
 
-function InfoWithdraw() {
+export default function UserWithdrawal() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [password, setPassword] = useState("");
-  const loginedUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const handleInputChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      await axios.delete(`http://localhost:8086/member/${loginedUser.id}`);
-      console.log("회원 탈퇴 성공!");
+      axios
+      .delete(`http://localhost:8086/member/${user.id}`)
+      .then((res) => {
+    console.log("회원 탈퇴 성공!");
       dispatch(logoutUser());
       navigate("/main");
-    } catch (err) {
+      })
+      .catch ((err) => {
       console.log("회원 탈퇴 실패");
-    }
+    })
   };
 
   const deleteCancel = () => {
@@ -67,5 +69,3 @@ function InfoWithdraw() {
     </Container>
   );
 }
-
-export default InfoWithdraw();

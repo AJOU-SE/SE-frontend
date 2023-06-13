@@ -14,7 +14,7 @@ export const cafeteria_menu = {
           "menu_id": 1,
           "cafeteria": "기숙사식당",
           "time":"중식",
-          "menu": "로제떡볶이,우동국,매콤김말이,양배추샐러드*드레싱,단무지",
+          "menu": "로제떡볶이,우동국,김말이,양배추샐러드*드레싱,단무지",
           "hashtag": "든든",
           "date": 2,
           "price": 5500
@@ -441,7 +441,7 @@ export const cafeteria_menu = {
           "menu_id": 49,
           "cafeteria": "다산관식당",
           "menu": "제육덮밥",
-          "hashtag": "밥",
+          "hashtag": "매콤",
           "date": -1,
           "price": 5000
         },
@@ -449,7 +449,7 @@ export const cafeteria_menu = {
           "menu_id": 50,
           "cafeteria": "다산관식당",
           "menu": "김치전골",
-          "hashtag": "밥, 뜨끈",
+          "hashtag": "매콤",
           "date": -1,
           "price": 5000
         },
@@ -457,7 +457,7 @@ export const cafeteria_menu = {
           "menu_id": 51,
           "cafeteria": "다산관식당",
           "menu": "치즈불닭",
-          "hashtag": "밥",
+          "hashtag": "매콤",
           "date": -1,
           "price": 5000
         },
@@ -677,7 +677,7 @@ export const cafeteria_menu = {
           "menu_id": 78,
           "cafeteria": "교직원식당",
           "time":"석식",
-          "menu": "쌀밥,호박된장찌개,매콤제육볶음,교자만두튀김,쫄면야채무침,배추김치,샐러드,수제식혜",
+          "menu": "쌀밥,호박된장찌개,제육볶음,교자만두튀김,쫄면야채무침,배추김치,샐러드,수제식혜",
           "hashtag": "든든",
           "date": 1,
           "price": 6000

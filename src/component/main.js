@@ -10,7 +10,7 @@ import { showMenuByCafeteria, showMenuByStore } from './menu';
 import { formatDate, getDayOfWeek, moveToPreviousDate, moveToNextDate } from './date';
 import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
-import { cafeteria_menu } from './cafeteria_menu';
+import { getMenuByTerm } from './cafeteria_menu';
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
@@ -21,14 +21,18 @@ function Main() {
   const [searchTerm, setSearchTerm] = useState(''); 
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = (e) =>{
+  const handleSearch =(e)=>{
     e.preventDefault();
-    const results = cafeteria_menu.results.filter(
-      (item)=>
-        item.menu.includes(searchTerm) || item.hashtag.includes(searchTerm)
-    );
+    console.log(searchTerm)
+    if (searchTerm.trim()===''){
+      setSearchResults([]);
+
+      return;
+    }
+    const results = getMenuByTerm(searchTerm);
+    console.log(results)
     setSearchResults(results);
-  };
+  }
   
   const handlePreviousDate = () => {
     const previousDate = moveToPreviousDate(selectedDate);
@@ -161,7 +165,7 @@ function Main() {
                     </div>
                   ))
               ):(
-                showMenuByCafeteria(cafeteria.name,selectedDate.getDay())
+                showMenuByCafeteria(cafeteria.name,selectedDate.getDay(),searchResults)
               
 
               )}

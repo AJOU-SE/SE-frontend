@@ -1,5 +1,5 @@
 export const cafeteria_menu = {
-    "resultCount":81,
+    "resultCount":82,
     "results":[
         {
           "menu_id": 0,
@@ -699,6 +699,15 @@ export const cafeteria_menu = {
           "hashtag": "밥,든든",
           "date": 4,
           "price": 1000
+        },
+        {
+          "menu_id": 81,
+          "cafeteria": "기숙사식당",
+          "time":"조식",
+          "menu": "계란소보로컵밥",
+          "hashtag": "밥,든든",
+          "date": 5,
+          "price": 1000
         }
 
       ]
@@ -713,12 +722,16 @@ export const getMenuByCafeteria = (Name) =>{
     return cafeteria_menu.results.filter(menu=>menu.cafeteria === Name);
 }
 
-export const getMenuByDate = (date) => {
-    return cafeteria_menu.results.filter(menu=>menu.date===date);
-}
-
 export const getMenuByStore = (Name) => {
     return cafeteria_menu.results.filter(menu=>menu.store === Name);
 }
 
+export const getMenuByTerm = (Term) => {
+  const searchTerm = Term.toLowerCase();
 
+  return cafeteria_menu.results.filter((menu)=>
+    menu.menu.toLowerCase().includes(searchTerm) ||
+    menu.hashtag.toLowerCase().includes(searchTerm)
+  );
+  
+}

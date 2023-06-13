@@ -1,50 +1,50 @@
 export const cafeteria_menu = {
-    "resultCount":74,
+    "resultCount":81,
     "results":[
         {
           "menu_id": 0,
           "cafeteria": "기숙사식당",
           "time":"조식",
-          "menu": "샌드위치",
-          "hashtag": "밥",
-          "date": 3,
+          "menu": "스리라차치킨마요컵밥",
+          "hashtag": "밥,든든",
+          "date": 2,
           "price": 1000
         },
         {
           "menu_id": 1,
           "cafeteria": "기숙사식당",
           "time":"중식",
-          "menu": "a,b,c,d,e,f",
-          "hashtag": "뜨끈",
-          "date": 3,
-          "price": 8000
+          "menu": "로제떡볶이,우동국,매콤김말이,양배추샐러드*드레싱,단무지",
+          "hashtag": "든든",
+          "date": 2,
+          "price": 5500
         },
         {
           "menu_id": 2,
           "cafeteria": "기숙사식당",
           "time":"석식",
-          "menu": "i,j,k,l",
-          "hashtag": "뜨끈",
-          "date": 3,
-          "price": 8000
+          "menu": "고깃집볶음밥,일식장국,지마구튀김,마늘종지,단무지",
+          "hashtag": "든든",
+          "date": 2,
+          "price": 5500
         },
         {
           "menu_id": 3,
           "cafeteria": "교직원식당",
           "time":"중식",
-          "menu": "d,w,e,f",
-          "hashtag": "뜨끈",
-          "date": 3,
-          "price": 6500
+          "menu": "쌀밥,잔치국수,춘천닭갈비,왕새우튀김,쪽파무생채,배추김치,샐러드,수제식혜",
+          "hashtag": "든든",
+          "date": 2,
+          "price": 6000
         },
         {
           "menu_id": 4,
           "cafeteria": "교직원식당",
           "time":"석식",
-          "menu": "f,d,s,f",
-          "hashtag": "뜨끈",
-          "date": 3,
-          "price": 6500
+          "menu": "쌀밥,돼지국밥,언양식불고기,비엔나야채조림,치커리겉절이,샐러드,수제식혜",
+          "hashtag": "든든",
+          "date": 2,
+          "price": 6000
         },
         {
           "menu_id": 5,
@@ -636,7 +636,71 @@ export const cafeteria_menu = {
           "hashtag": "면, 뜨끈",
           "date": -1,
           "price": 4500
+        },
+        {
+          "menu_id": 74,
+          "cafeteria": "기숙사식당",
+          "time":"조식",
+          "menu": "제육컵밥",
+          "hashtag": "밥,든든",
+          "date": 1,
+          "price": 1000
+        },
+        {
+          "menu_id": 75,
+          "cafeteria": "기숙사식당",
+          "time":"중식",
+          "menu": "돈가스마요덮밥,유부맑은국,치커리사과생채,단무지,배추김치",
+          "hashtag": "든든",
+          "date": 1,
+          "price": 5500
+        },
+        {
+          "menu_id": 76,
+          "cafeteria": "기숙사식당",
+          "time":"석식",
+          "menu": "얼큰순두부찌개,돼지고기강정,미역초무침,흑미밥,배추김치",
+          "hashtag": "든든",
+          "date": 1,
+          "price": 5500
+        },
+        {
+          "menu_id": 77,
+          "cafeteria": "교직원식당",
+          "time":"중식",
+          "menu": "쌀밥,육개장,치킨까스유린기,볼어묵볶음,치커리겉절이,배추김치,샐러드,수제식혜",
+          "hashtag": "든든",
+          "date": 1,
+          "price": 6000
+        },
+        {
+          "menu_id": 78,
+          "cafeteria": "교직원식당",
+          "time":"석식",
+          "menu": "쌀밥,호박된장찌개,매콤제육볶음,교자만두튀김,쫄면야채무침,배추김치,샐러드,수제식혜",
+          "hashtag": "든든",
+          "date": 1,
+          "price": 6000
+        },
+        {
+          "menu_id": 79,
+          "cafeteria": "기숙사식당",
+          "time":"조식",
+          "menu": "중화비빔컵밥",
+          "hashtag": "밥,든든",
+          "date": 3,
+          "price": 1000
+        },
+        {
+          "menu_id": 80,
+          "cafeteria": "기숙사식당",
+          "time":"조식",
+          "menu": "쏘야컵밥",
+          "hashtag": "밥,든든",
+          "date": 4,
+          "price": 1000
         }
+
       ]
 
     
@@ -656,3 +720,5 @@ export const getMenuByDate = (date) => {
 export const getMenuByStore = (Name) => {
     return cafeteria_menu.results.filter(menu=>menu.store === Name);
 }
+
+

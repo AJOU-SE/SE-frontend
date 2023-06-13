@@ -7,12 +7,41 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 import axios from 'axios';
 import { showMenuByCafeteria, showMenuByStore } from './menu';
+import { formatDate, getDayOfWeek, moveToPreviousDate, moveToNextDate } from './date';
+import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
+import { cafeteria_menu } from './cafeteria_menu';
 
 function Main() {
   const { loggedIn, userId, handleLogout } = useContext(UserContext);
   const [expanded, setExpanded] = useState({});
   const [menuExpanded, setMenuExpanded] = useState({});
   const [achelinExpanded, setAchelinExpanded] = useState({});
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (e) =>{
+    e.preventDefault();
+    const results = cafeteria_menu.results.filter(
+      (item)=>
+        item.menu.includes(searchTerm) || item.hashtag.includes(searchTerm)
+    );
+    setSearchResults(results);
+  };
+  
+  const handlePreviousDate = () => {
+    const previousDate = moveToPreviousDate(selectedDate);
+    setSelectedDate(previousDate);
+  };
+
+  const handleNextDate = () => {
+    const nextDate = moveToNextDate(selectedDate);
+    setSelectedDate(nextDate);
+  };
+
+  const formattedDate = formatDate(selectedDate);
+  const dayOfWeek = getDayOfWeek(selectedDate);
 
   const toggleExpand = (index) => {
     setExpanded((prevState)=>({
@@ -48,6 +77,8 @@ function Main() {
     }
   }
 
+  
+
   return (
     <div>
       {loggedIn ? (
@@ -58,9 +89,32 @@ function Main() {
       ) : (
         <div>
           <h2>Welcome to the Main Page</h2>
+          
           <Link to="/login">Go to Login Page</Link>
         </div>
       )}
+
+
+      <br />
+      <p>
+          <ArrowLeftOutlinedIcon onClick={handlePreviousDate} style={{ cursor: 'pointer', fontSize:'0.9rem'}} />
+          {formattedDate}({dayOfWeek}) 
+          <ArrowRightOutlinedIcon onClick={handleNextDate} style={{ cursor: 'pointer', fontSize:'0.9rem'}} />
+          
+      </p>
+      
+      <form onSubmit={handleSearch}>
+        <input  
+          type="text"
+          value={searchTerm}
+          onChange={(e)=>setSearchTerm(e.target.value)} />
+        <button type="submit"> search</button>
+      </form>
+
+
+
+      
+
 
       {cafeteria_list.results.map((cafeteria,index)=>(
         <div key={index} >
@@ -101,18 +155,23 @@ function Main() {
                       {achelinExpanded[item.store] && (
                         <div>
                           {showMenuByStore(item.store)}
+                     
                         </div>
                       )}
                     </div>
                   ))
               ):(
-                showMenuByCafeteria(cafeteria.name)
+                showMenuByCafeteria(cafeteria.name,selectedDate.getDay())
+              
+
               )}
             </div>
           )}
           
         </div>
       ))}
+
+    
 
     </div>
   );

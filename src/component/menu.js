@@ -1,15 +1,23 @@
 import { getMenuByCafeteria,getMenuByStore } from "./cafeteria_menu";
 
-export const showMenuByCafeteria = (cafeteriaName) =>{
+export const showMenuByCafeteria = (cafeteriaName,selectedDate) =>{
     const menuList = getMenuByCafeteria(cafeteriaName);
 
-
-    return menuList.map((menu,index)=>(
-        <div key={index}>
-            {menu.time && <p>{menu.time}</p>}
-            <p>{menu.menu} {menu.price}원</p>
-        </div>
-    ))
+    return menuList.map((menu,index)=>{
+        // const menuDate=new Date(menu.date);
+        if (menu.date===-1 || menu.date===selectedDate){
+            return (
+                <div key={index}>
+                    {menu.time && <p>{menu.time}</p>}
+                    <p>{menu.menu} {menu.price}원</p>
+            
+                </div>
+            )
+            }
+    
+    
+        
+        })
 }
 
 export const showMenuByStore = (storeName) => {
